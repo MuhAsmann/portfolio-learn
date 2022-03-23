@@ -39,28 +39,48 @@ const nav = document.querySelector(".nav"),
             this.classList.add("active");
             //panggil function 
             showSection(this);
+
+            if(window.innerWidth < 1200){
+                asideSectionTogglerBtn();
+            }
             
         });
         //ulangi perulangan hingga akhir
     }
 function showSection(element) {
-    //function dari vidio tutorial
-    /*
-    
-    const target = element.getAttribute("href").split("#")[1];
-    document.querySelector("#" + target).classList.add("active");
-    
-    */
 
-    
+
     for(let i=0;i<allSection.length;i++){
         allSection[i].classList.remove("active");
     }
 
-    //fungction dipersingkat
-    const target = element.getAttribute("href");
-    document.querySelector(target).classList.add("active");
+    //function dari vidio tutorial
+    
+    const target = element.getAttribute("href").split("#")[1];
+    document.querySelector("#" + target).classList.add("active");
+    
+
+    // //fungction dipersingkat, ternyata tidak bisa digunakan
+    // const target = element.getAttribute("href");
+    // document.querySelector(target).classList.add("active");
 }
+
+function updateNav(element) {
+    for (let i = 0; i < totalNavList; i++) {
+        navList[i].querySelector("a").classList.remove("active");
+        const target = element.getAttribute("href").split("#")[1];
+        if(target === navList[i].querySelector("a").getAttribute("href").split("#")[1]){
+            navList[i].querySelector("a").classList.add("active");
+        }     
+    }
+}
+
+document.querySelector(".hire-me").addEventListener("click", function () {
+    const sectionIndex = this.getAttribute("data-section-index");
+    
+    showSection(this);
+    updateNav(this);
+});
 
 const navTogglerBtn = document.querySelector(".nav-toggler"),
         aside = document.querySelector(".aside");
